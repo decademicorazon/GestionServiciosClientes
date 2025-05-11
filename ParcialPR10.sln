@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiClientes", "ApiClientes\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormClientes", "FormClientes\FormClientes.csproj", "{02A41549-C299-4A49-BEA9-79A6102A2D91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menus", "Menus\Menus.csproj", "{425ABE4C-4D10-4146-B4A7-EB00740A944F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{02A41549-C299-4A49-BEA9-79A6102A2D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02A41549-C299-4A49-BEA9-79A6102A2D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02A41549-C299-4A49-BEA9-79A6102A2D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425ABE4C-4D10-4146-B4A7-EB00740A944F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{425ABE4C-4D10-4146-B4A7-EB00740A944F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{425ABE4C-4D10-4146-B4A7-EB00740A944F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{425ABE4C-4D10-4146-B4A7-EB00740A944F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

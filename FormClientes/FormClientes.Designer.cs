@@ -1,6 +1,6 @@
 ﻿namespace FormClientes
 {
-    partial class Form1
+    partial class FormClientes
     {
         /// <summary>
         ///  Required designer variable.
@@ -38,6 +38,7 @@
             btn_agregar = new Button();
             btn_modificar = new Button();
             btn_eliminar = new Button();
+            btn_limpiar = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCliente).BeginInit();
             SuspendLayout();
             // 
@@ -134,11 +135,22 @@
             btn_eliminar.UseVisualStyleBackColor = true;
             btn_eliminar.Click += btnEliminar_Click;
             // 
+            // btn_limpiar
+            // 
+            btn_limpiar.Location = new Point(346, 12);
+            btn_limpiar.Name = "btn_limpiar";
+            btn_limpiar.Size = new Size(99, 26);
+            btn_limpiar.TabIndex = 12;
+            btn_limpiar.Text = "LIMPIAR";
+            btn_limpiar.UseVisualStyleBackColor = true;
+            btn_limpiar.Click += btn_limpiar_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(880, 330);
+            Controls.Add(btn_limpiar);
             Controls.Add(btn_eliminar);
             Controls.Add(btn_modificar);
             Controls.Add(btn_agregar);
@@ -169,5 +181,6 @@
         private Button btn_agregar;
         private Button btn_modificar;
         private Button btn_eliminar;
+        private Button btn_limpiar;
     }
 }

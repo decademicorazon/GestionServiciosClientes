@@ -3,16 +3,18 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json;
 using System.Windows.Forms;
+using System.Net.Http;
+
 
 namespace FormClientes
 {
-    public partial class Form1 : Form
+    public partial class FormClientes : Form
     {
         private readonly string apiUrl = "http://localhost:5069";
         private readonly HttpClient httpClient = new HttpClient();
         private List<Cliente> listaCliente = new();
 
-        public Form1()
+        public FormClientes()
         {
             InitializeComponent();
             dgvCliente.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -24,6 +26,12 @@ namespace FormClientes
             await CargarClientesAsyncs();
         }
 
+        private void LimpiarCampos()
+        {
+            txtId.Clear();
+            txtNombre.Clear();
+            txtApellido.Clear();
+        }
         private async Task CargarClientesAsyncs()
         {
             try
@@ -40,14 +48,7 @@ namespace FormClientes
                         TypeNameHandling = TypeNameHandling.All
                     });
 
-                    dgvCliente.AutoGenerateColumns = true;
-                    dgvCliente.DataSource = listaCliente.Select(c => new
-                    {
-                        c.Id,
-                        c.Nombre,
-                        c.Apellido,
-                        Tipo = c.GetType().Name
-                    }).ToList();
+                   
                 }
                 else
                 {
@@ -58,6 +59,10 @@ namespace FormClientes
             {
                 MessageBox.Show($"Error al cargar los clientes: {ex.Message}");
             }
+
+            dgvCliente.DataSource = null;
+            dgvCliente.DataSource = listaCliente;
+
         }
 
         private async void btnAgregar_Click(object sender, EventArgs e)
@@ -88,29 +93,47 @@ namespace FormClientes
 
         private async void btnActualizar_Click(object sender, EventArgs e)
         {
-            if (dgvCliente.CurrentRow == null) return;
-
-            var cliente = listaCliente[dgvCliente.CurrentRow.Index];
-            cliente.Nombre = txtNombre.Text;
-            cliente.Apellido = txtApellido.Text;
-
-            var json = JsonConvert.SerializeObject(cliente, new JsonSerializerSettings
+            // Verificar que se haya seleccionado una fila válida en el DataGridView
+            if (dgvCliente.CurrentRow == null || dgvCliente.CurrentRow.Index < 0)
             {
-                TypeNameHandling = TypeNameHandling.All
-            });
-
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await httpClient.PutAsync($"{apiUrl}/api/Cliente/{cliente.Id}", content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                MessageBox.Show("Cliente actualizado correctamente");
-                await CargarClientesAsyncs();
+                MessageBox.Show("Por favor, seleccioná un cliente.");
+                return;
             }
-            else
+
+            // Validar que el ID sea un número entero
+            if (!int.TryParse(txtId.Text.Trim(), out int clienteId))
             {
-                MessageBox.Show("Error al actualizar el cliente");
+                MessageBox.Show("El ID del cliente no es válido.");
+                return;
             }
+
+            // Crear el objeto cliente con los datos del formulario
+            var clienteModificado = new Cliente
+            {
+                Id = clienteId,
+                Nombre = txtNombre.Text.Trim(),
+                Apellido = txtApellido.Text.Trim()
+            };
+
+            try
+            {
+                bool resultado = await ModificarCliente(clienteModificado.Id, clienteModificado);
+
+                if (resultado)
+                {
+                    MessageBox.Show("Cliente actualizado correctamente.");
+                    await CargarClientesAsyncs();
+                }
+                else
+                {
+                    MessageBox.Show("Error al actualizar el cliente.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error: {ex.Message}");
+            }
+
         }
 
         private async void btnEliminar_Click(object sender, EventArgs e)
@@ -129,17 +152,31 @@ namespace FormClientes
             {
                 MessageBox.Show("Error al eliminar el cliente");
             }
+
+
+        }
+
+        private async Task <bool> ModificarCliente(int id, Cliente cliente)
+        {
+            using var httpClient = new HttpClient();
+            var respuesta = await httpClient.PutAsJsonAsync($"http://localhost:5069/api/Cliente?id={id}", cliente);
+            return respuesta.IsSuccessStatusCode;
         }
 
         private void dgvAlumnos_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvCliente.CurrentRow == null || listaCliente.Count == 0) return;
+            if (dgvCliente.CurrentRow == null || dgvCliente.CurrentRow.DataBoundItem == null) return;
 
-            var cliente = listaCliente[dgvCliente.CurrentRow.Index];
+            var cliente = (Cliente)dgvCliente.CurrentRow.DataBoundItem;
 
             txtId.Text = cliente.Id.ToString();
             txtNombre.Text = cliente.Nombre;
             txtApellido.Text = cliente.Apellido;
+        }
+
+        private void btn_limpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
         }
     }
 

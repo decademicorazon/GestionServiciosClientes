@@ -57,7 +57,7 @@ namespace ApiClientes.Controllers
             }
             return Ok(servicioAmodificar);
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult DeleteServicio(int id)
         {
             var servicio = repo.ObtenerServicioPorId(id);
@@ -68,5 +68,25 @@ namespace ApiClientes.Controllers
             repo.EliminarServicio(id);
             return NoContent();
         }
+
+        [HttpGet("TotalVentas")]
+        public IActionResult GetTotalVentasPorServicio()
+        {
+            var clientes = clienteRepo.ObtenerClientes();
+
+            var totalesPorServicio = clientes
+                .SelectMany(c => c.ServiciosContratados) // todas las contrataciones de todos los clientes
+                .GroupBy(s => new { s.Id, s.Nombre })    // agrupamos por ID y Nombre del servicio
+                .Select(g => new
+                {
+                    IdServicio = g.Key.Id,
+                    Nombre = g.Key.Nombre,
+                    TotalVendido = g.Sum(s => s.Precio)
+                })
+                .ToList();
+
+            return Ok(totalesPorServicio);
+        }
+
     }
 }

@@ -39,6 +39,8 @@
             btn_modificar = new Button();
             btn_eliminar = new Button();
             btn_limpiar = new Button();
+            cmb_tipo = new ComboBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvCliente).BeginInit();
             SuspendLayout();
             // 
@@ -47,7 +49,7 @@
             dgvCliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCliente.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvCliente.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCliente.Location = new Point(12, 100);
+            dgvCliente.Location = new Point(14, 159);
             dgvCliente.Name = "dgvCliente";
             dgvCliente.ReadOnly = true;
             dgvCliente.Size = new Size(734, 185);
@@ -58,7 +60,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(251, 63);
+            label1.Location = new Point(21, 120);
             label1.Name = "label1";
             label1.Size = new Size(65, 18);
             label1.TabIndex = 1;
@@ -68,7 +70,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(526, 63);
+            label2.Location = new Point(469, 120);
             label2.Name = "label2";
             label2.Size = new Size(60, 18);
             label2.TabIndex = 2;
@@ -78,7 +80,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(14, 63);
+            label3.Location = new Point(59, 65);
             label3.Name = "label3";
             label3.Size = new Size(27, 18);
             label3.TabIndex = 4;
@@ -86,28 +88,28 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(322, 63);
+            txtNombre.Location = new Point(92, 120);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(149, 23);
             txtNombre.TabIndex = 5;
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(597, 63);
+            txtApellido.Location = new Point(540, 120);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(149, 23);
             txtApellido.TabIndex = 6;
             // 
             // txtId
             // 
-            txtId.Location = new Point(47, 61);
+            txtId.Location = new Point(92, 63);
             txtId.Name = "txtId";
             txtId.Size = new Size(149, 23);
             txtId.TabIndex = 8;
             // 
             // btn_agregar
             // 
-            btn_agregar.Location = new Point(769, 100);
+            btn_agregar.Location = new Point(771, 159);
             btn_agregar.Name = "btn_agregar";
             btn_agregar.Size = new Size(99, 42);
             btn_agregar.TabIndex = 9;
@@ -117,7 +119,7 @@
             // 
             // btn_modificar
             // 
-            btn_modificar.Location = new Point(769, 169);
+            btn_modificar.Location = new Point(771, 228);
             btn_modificar.Name = "btn_modificar";
             btn_modificar.Size = new Size(99, 42);
             btn_modificar.TabIndex = 10;
@@ -127,7 +129,7 @@
             // 
             // btn_eliminar
             // 
-            btn_eliminar.Location = new Point(769, 243);
+            btn_eliminar.Location = new Point(771, 302);
             btn_eliminar.Name = "btn_eliminar";
             btn_eliminar.Size = new Size(99, 42);
             btn_eliminar.TabIndex = 11;
@@ -145,11 +147,32 @@
             btn_limpiar.UseVisualStyleBackColor = true;
             btn_limpiar.Click += btn_limpiar_Click;
             // 
-            // Form1
+            // cmb_tipo
+            // 
+            cmb_tipo.FormattingEnabled = true;
+            cmb_tipo.Items.AddRange(new object[] { "Normal", "Frecuente", "Operativo" });
+            cmb_tipo.Location = new Point(540, 63);
+            cmb_tipo.Name = "cmb_tipo";
+            cmb_tipo.Size = new Size(121, 23);
+            cmb_tipo.TabIndex = 27;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(493, 63);
+            label4.Name = "label4";
+            label4.Size = new Size(41, 18);
+            label4.TabIndex = 26;
+            label4.Text = "Tipo:";
+            // 
+            // FormClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(880, 330);
+            ClientSize = new Size(880, 356);
+            Controls.Add(cmb_tipo);
+            Controls.Add(label4);
             Controls.Add(btn_limpiar);
             Controls.Add(btn_eliminar);
             Controls.Add(btn_modificar);
@@ -161,7 +184,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(dgvCliente);
-            Name = "Form1";
+            Name = "FormClientes";
             Text = "Form1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCliente).EndInit();
@@ -182,5 +205,7 @@
         private Button btn_modificar;
         private Button btn_eliminar;
         private Button btn_limpiar;
+        private ComboBox cmb_tipo;
+        private Label label4;
     }
 }

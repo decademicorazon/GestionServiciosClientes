@@ -1,4 +1,4 @@
-using LibClassModels.Modelos;
+Ôªøusing LibClassModels.Modelos;
 using Newtonsoft.Json;
 using System.Text;
 using System.Text.Json;
@@ -23,7 +23,16 @@ namespace FormClientes
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            await CargarClientesAsyncs();
+
+            var datosParaGrid = listaCliente.Select(c => new
+            {
+                c.Id,
+                c.Nombre,
+                c.Apellido,
+                Tipo = c.TipoCliente
+            }).ToList();
+
+            dgvCliente.DataSource = datosParaGrid;
         }
 
         private void LimpiarCampos()
@@ -48,11 +57,11 @@ namespace FormClientes
                         TypeNameHandling = TypeNameHandling.All
                     });
 
-                   
+
                 }
                 else
                 {
-                    MessageBox.Show($"Error al cargar los clientes. CÛdigo: {(int)response.StatusCode} ({response.StatusCode})");
+                    MessageBox.Show($"Error al cargar los clientes. CÔøΩdigo: {(int)response.StatusCode} ({response.StatusCode})");
                 }
             }
             catch (Exception ex)
@@ -65,6 +74,8 @@ namespace FormClientes
 
         }
 
+
+
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
             var cliente = new ClienteRequestPost
@@ -72,7 +83,7 @@ namespace FormClientes
                 id = Convert.ToInt32(txtId.Text),
                 Nombre = txtNombre.Text,
                 Apellido = txtApellido.Text,
-                Tipo = "Frecuente" // podÈs cambiar esto si us·s un ComboBox para el tipo
+                Tipo = cmb_tipo.SelectedItem.ToString() // pod√©s cambiar esto si us√°s un ComboBox para el tipo
             };
 
             var json = JsonConvert.SerializeObject(cliente);
@@ -93,17 +104,17 @@ namespace FormClientes
 
         private async void btnActualizar_Click(object sender, EventArgs e)
         {
-            // Verificar que se haya seleccionado una fila v·lida en el DataGridView
+            // Verificar que se haya seleccionado una fila v√°lida en el DataGridView
             if (dgvCliente.CurrentRow == null || dgvCliente.CurrentRow.Index < 0)
             {
-                MessageBox.Show("Por favor, seleccion· un cliente.");
+                MessageBox.Show("Por favor, seleccion√° un cliente.");
                 return;
             }
 
-            // Validar que el ID sea un n˙mero entero
+            // Validar que el ID sea un n√∫mero entero
             if (!int.TryParse(txtId.Text.Trim(), out int clienteId))
             {
-                MessageBox.Show("El ID del cliente no es v·lido.");
+                MessageBox.Show("El ID del cliente no es v√°lido.");
                 return;
             }
 
@@ -131,7 +142,7 @@ namespace FormClientes
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"OcurriÛ un error: {ex.Message}");
+                MessageBox.Show($"Ocurri√≥ un error: {ex.Message}");
             }
 
         }
@@ -186,5 +197,10 @@ namespace FormClientes
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Tipo { get; set; }
+
+        public List<Servicios>? ServiciosContratados { get; set; } = new List<Servicios>();
+
+        public List<ClienteFactory> clienteFactories { get; set; } = new List<ClienteFactory>();
+
     }
 }

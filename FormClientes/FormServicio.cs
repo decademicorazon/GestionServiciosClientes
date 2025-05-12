@@ -57,6 +57,8 @@ namespace FormClientes
             txtIdServicio.Clear();
             txtNombreServicio.Clear();
             txtPrecioServicio.Clear();
+           
+
         }
         private async void FormServicio_Load(object sender, EventArgs e)
         {

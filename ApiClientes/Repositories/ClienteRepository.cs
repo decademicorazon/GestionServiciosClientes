@@ -9,6 +9,7 @@ namespace ApiClientes.Repositories
         private readonly ServiciosRepository serviciosRepository = new ServiciosRepository();
         private readonly string Json = "clientes.json";
         private List<Cliente> clientes;
+        
 
         public ClienteRepository()
         {
@@ -62,6 +63,7 @@ namespace ApiClientes.Repositories
             cliente.Id = clientePost.id;
             cliente.Nombre = clientePost.Nombre;
             cliente.Apellido = clientePost.Apellido;
+            
             
             clientes.Add(cliente);
             GuardarClientes();

@@ -36,10 +36,7 @@ namespace FormClientes
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    listaServicios = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Servicios>>(json, new Newtonsoft.Json.JsonSerializerSettings
-                    {
-                        TypeNameHandling = Newtonsoft.Json.TypeNameHandling.All
-                    });
+                    listaServicios = JsonConvert.DeserializeObject<List<Servicios>>(json);
                     dgvServicios.DataSource = listaServicios;
                 }
                 else
@@ -52,6 +49,18 @@ namespace FormClientes
                 MessageBox.Show($"Error al cargar los servicios: {ex.Message}");
             }
         }
+
+        private async Task<bool> ContratarServicios(int idCliente, int idServicios)
+        {
+
+            using var httpClient = new HttpClient();
+            var respuesta = await httpClient.PostAsJsonAsync($"http://localhost:5069/api/Cliente/AgregarServicio/?idCliente={idCliente}", idServicios);
+            return respuesta.IsSuccessStatusCode;
+
+        }
+
+
+
 
         private async Task CargarClientesAsyncs()
         {
@@ -105,6 +114,23 @@ namespace FormClientes
             {
                 var idServicio = Convert.ToInt32(dgvServicios.Rows[e.RowIndex].Cells[0].Value);
                 txt_IdServicio.Text = idServicio.ToString();
+            }
+        }
+
+        private async void btn_agregarServicio_Click(object sender, EventArgs e)
+        {
+            int idcliente = int.Parse(txt_IdCliente.Text);
+            int idservicio = int.Parse(txt_IdServicio.Text);
+
+            bool exito = await ContratarServicios(idcliente, idservicio);
+
+            if (exito)
+            {
+                MessageBox.Show("Servicio contratado correctamente.");
+            }
+            else
+            {
+                MessageBox.Show("Error al contratar el servicio.");
             }
         }
     }

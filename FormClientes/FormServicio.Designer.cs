@@ -84,7 +84,7 @@
             // 
             // txtIdServicio
             // 
-            txtIdServicio.Location = new Point(45, 145);
+            txtIdServicio.Location = new Point(54, 145);
             txtIdServicio.Name = "txtIdServicio";
             txtIdServicio.Size = new Size(149, 23);
             txtIdServicio.TabIndex = 18;
@@ -98,7 +98,7 @@
             // 
             // txtNombreServicio
             // 
-            txtNombreServicio.Location = new Point(305, 143);
+            txtNombreServicio.Location = new Point(305, 145);
             txtNombreServicio.Name = "txtNombreServicio";
             txtNombreServicio.Size = new Size(149, 23);
             txtNombreServicio.TabIndex = 16;
@@ -117,7 +117,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(234, 145);
+            label1.Location = new Point(234, 147);
             label1.Name = "label1";
             label1.Size = new Size(65, 18);
             label1.TabIndex = 14;
@@ -140,7 +140,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(12, 148);
+            label3.Location = new Point(21, 148);
             label3.Name = "label3";
             label3.Size = new Size(27, 18);
             label3.TabIndex = 23;

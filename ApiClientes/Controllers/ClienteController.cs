@@ -57,7 +57,7 @@ namespace ApiClientes.Controllers
 
         }
 
-        [HttpPost("AgregarServicio/{idCliente}")]
+        [HttpPost("AgregarServicio")]
         public IActionResult PostServicio(int idCliente,[FromBody]int idServicio)
         {
             

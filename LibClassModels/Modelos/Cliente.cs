@@ -25,7 +25,9 @@ namespace LibClassModels.Modelos
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-     
+
+        public virtual string TipoCliente => "Normal";
+
         public List<Servicios>? ServiciosContratados { get; set; } = new List<Servicios>();
 
         public virtual decimal CalcularMontoTotal(decimal precioOriginal)
@@ -42,6 +44,8 @@ namespace LibClassModels.Modelos
     {
        // public decimal Descuento { get; set; }
 
+        public override string TipoCliente => "Frecuente";
+
         public override decimal CalcularMontoTotal(decimal precioOriginal)
         {
            
@@ -56,6 +60,9 @@ namespace LibClassModels.Modelos
 
     public class ClienteOperativo : Cliente
     {
+        public override string TipoCliente => "Operativo";
+
+
         public override decimal CalcularMontoTotal(decimal precioOriginal)
         {
             
